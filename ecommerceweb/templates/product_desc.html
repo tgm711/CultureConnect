@@ -1,0 +1,207 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container pt-5 pb-5">
+    <div class="card pl-3 pr-3" style="border:0.5px solid grey;">
+        <div class="row">
+            <aside class="col-sm-7 border-right">
+                <div class="container pt-5">
+                    <div class="row align-items-center">
+                        <div id="slider">
+                            <div id="myCarousel" class="carousel slide shadow">
+                                <div class="carousel-inner">
+                                    {% if img[0] %}
+                                    <div class="active carousel-item" data-slide-number="0">
+                                        <img src="data:;base64,{{ img[0] }}" class="img-fluid">
+                                    </div>
+                                    {% endif %}
+                                    {% if img[1] %}
+                                    <div class="carousel-item" data-slide-number="1">
+                                        <img src="data:;base64,{{ img[1] }}" class="img-fluid">
+                                    </div>
+                                    {% endif %}
+                                    {% if img[2] %}
+                                    <div class="carousel-item" data-slide-number="2">
+                                        <img src="data:;base64,{{ img[2] }}" class="img-fluid">
+                                    </div>
+                                    {% endif %}
+                                    {% if img[3] %}
+                                    <div class="carousel-item" data-slide-number="3">
+                                        <img src="data:;base64,{{ img[3] }}" class="img-fluid">
+                                    </div>
+                                    {% endif %}
+                                    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+
+                                <ul class="carousel-indicators list-inline mx-auto border px-2">
+                                    {% if img[0] %}
+                                    <li class="list-inline-item active">
+                                        <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#myCarousel">
+                                            <img src="data:;base64,{{ img[0] }}" class="img-fluid" style="width: 60px; height: 80px;">
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if img[1] %}
+                                    <li class="list-inline-item">
+                                        <a id="carousel-selector-1" data-slide-to="1" data-target="#myCarousel">
+                                            <img src="data:;base64,{{ img[1] }}" class="img-fluid" style="width: 60px; height: 80px;">
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if img[2] %}
+                                    <li class="list-inline-item">
+                                        <a id="carousel-selector-2" data-slide-to="2" data-target="#myCarousel">
+                                            <img src="data:;base64,{{ img[2] }}" class="img-fluid" style="width: 60px; height: 80px;">
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if img[3] %}
+                                    <li class="list-inline-item">
+                                            <a id="carousel-selector-3" data-slide-to="3" data-target="#myCarousel">
+                                            <img src="data:;base64,{{ img[3] }}" class="img-fluid" style="width: 60px; height: 80px;">
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!--right side -->
+            <aside class="col-sm-5 pt-5 pl-5">
+                {% if prod.category_id == 1%}
+                <h6 class="text-muted pt-3"><b>Handicrafts</b></h6>
+                {% elif prod.category_id == 2%}
+                <h6 class="text-muted pt-3"><b>Home Decor</b></h6>
+                {% elif prod.category_id == 3%}
+                <h6 class="text-muted pt-3"><b>Ayurvedic Products</b></h6>
+                {% elif prod.category_id == 4%}
+                <h6 class="text-muted pt-3"><b>Khadi Cloth Products</b></h6>
+                {% elif prod.category_id == 5%}
+                <h6 class="text-muted pt-3"><b>Jewellery</b></h6>
+                {% endif%}
+                <h3>{{ prod.name }}</h3>
+                {% if prod.stock>2 %}
+                <h6 style="color: green;">In Stock</h6>
+                {% elif prod.stock==2 %}
+                <h6 style="color: green;">Only 2 left in stock</h6>
+                {% else %}
+                <h6 style="color: green;">Only 1 left in stock</h6>
+                {% endif%}
+                <p class="price-detail-wrap"> 
+                    <span class="price h3" style="color: brown;"> 
+                        <b><span class="currency">₹</span><span class="num">{{ prod.cost }}</span>
+                    </span></b>
+                </p> 
+                <form method="POST" action="" class="text">
+                    {{ form.hidden_tag() }}						 
+                    <div class="form-group">
+                        <h6>{{ form.quantity.label(class="form-control-label") }}</h6>
+                        {% if form.quantity.errors %}
+                            {{ form.quantity(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.quantity.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.quantity(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.buy(class="btn btn-outline-warning btn-lg p-3 pb-2 btn-block") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.add(class="btn btn-outline-warning btn-lg p-3 pb-2 btn-block") }}
+                    </div>
+                </form>
+            </aside>				
+        </div>
+        <span class="pb-4"></span>
+        <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#desp">Description</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#seller">Seller Information</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Shipping">Shipping</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#reviews">Customization</a>
+              </li>
+        </ul>
+        <div class="tab-content">
+            <div id="desp" class="container tab-pane active"><br>
+                  <h3>{{ prod.name }}</h3>
+                 <p>{{ prod.details }}</p>
+            </div>
+            <div id="seller" class="container tab-pane fade"><br>
+                <h5>{{ seller.name }}</h5>
+                <p>{{ seller.description }}</p>
+                <table>
+                    <tr>
+                        <th>Website: </th>
+                        <td><span style="color: blue;">{{ seller.website }}</span></td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td><span style="color: blue;">{{ seller.email }}</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="Shipping" class="container tab-pane fade"><br>
+                  <p>We ship everywhere in India within 2-4 business days.</p>
+            </div>
+            <div id="reviews" class="container tab-pane fade"><br>
+                <h4>Customization</h4>
+                <form method="POST" action="" class="text">
+                    {{ form2.hidden_tag() }}						 
+                    <div class="form-group">
+                        <h6>{{ form2.content.label(class="form-control-label") }}</h6>
+                        {% if form2.content.errors %}
+                            {{ form2.content(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form2.content.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form2.content(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form2.submit(class="btn btn-outline-primary") }}
+                    </div>
+                </form>
+                {% if length==0 %}
+                <h4>There are no existing Customization for this product.</h4>
+                {% else %}
+                <h4>User Customization</h4>
+                {% for r in reviews %}
+                <h5>{{r.user_name}} on {{ moment(r.date_posted).format('MMMM Do YYYY, h:mm a') }}</h5>
+                <p>{{r.content}}</p>
+                {% if r.user_id == current_user.id %}
+                <a href="{{url_for('deletereview', pid=r.prod_id)}}" class="btn btn-outline-danger">
+                    Delete Customization
+                </a>
+                {%endif%}
+                <hr>
+                {%endfor%}
+                {%endif%}
+            </div>
+          </div>
+          <hr>
+    </div>
+</div>
+
+{% endblock content %}

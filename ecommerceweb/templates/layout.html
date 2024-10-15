@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pdesp.css') }}">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Home</title>
+    {% endif %}
+    {{ moment.include_jquery }}
+    <style>
+      /* Make the image fully responsive */
+      .carousel-inner img {
+          width: 100%;
+          height: 50%;
+      }
+      @font-face {
+        font-family: "Samarkan";                     /*any name*/
+        src: url("../static/SAMARN__.TTF");
+      }
+      .title{
+        font-family: "Samarkan";
+      }
+      .text      {
+        text-align: left;
+      }
+      .navbar-custom{
+        background-color: #c74456;
+      }
+      .logo{
+        height: 100%;
+        width: 100%;
+      }
+      .bg-steel {
+        background-color:saddlebrown;
+      }
+
+      </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm bg-steel navbar-dark fixed-top">
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a href="/" class="navbar-brand title"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('about') }}">About Us</a>
+              <form class="form-inline ml-auto" action="{{ url_for('search') }}" method="post" name="search">
+                <div class="md-form my-0">
+                {{ g.search_form.hidden_tag() }}{{ g.search_form.search(class="form-control", placeholder="Search for a product") }}</div>
+              <input type="submit" value="Search" class="btn btn-outline-white btn-md my-0 ml-sm-2" style="color: white;"></form>
+            </div>
+              <div class="dropdown" style="color: white;">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="" style="color: white;">Categories</a>
+                <div class="dropdown-menu" role="menu">
+                  <a href="{{ url_for('categorypage', catname='handicrafts')}}" class="dropdown-item">Handicrafts</a>
+                  <a href="{{ url_for('categorypage', catname='homedecor')}}"class="dropdown-item">Home Decor</a>
+                  <a href="{{ url_for('categorypage', catname='ayurvedicproducts')}}" class="dropdown-item">Ayurvedic Products</a>
+                  <a href="{{ url_for('categorypage', catname='khadiclothproducts')}}" class="dropdown-item">Khadi Cloth Products</a>
+                  <a href="{{ url_for('categorypage', catname='jewellery')}}" class="dropdown-item">Jewellery</a>
+                </div>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('cart') }}">Cart</a>
+              <a class="nav-item nav-link" href="{{ url_for('orders') }}">Your Orders</a>
+              <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+              {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+              <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </nav>
+  <main role="main" class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <center><div class="alert alert-{{ category }}">
+                {{ message }}
+              </div><center>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+  </main>
+  {% block content %}{% endblock %}
+  <br><br><br><br>
+  <footer style="height: 50px; position: relative; bottom: 0; left: 0; right: 0; line-height:30px; background-color: gainsboro;">
+    <p class="m-0 text-center text-muted">Copyright &copy; CultureConnect 2024</p>
+  </footer>
+
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</body>
+</html>

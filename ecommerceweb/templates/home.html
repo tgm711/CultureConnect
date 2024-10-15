@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid" style="background-color: #fff;">
+   <center> <h2 style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">CultureConnect! Crafting one story at a Time!</h2></center>
+  <div id="demo" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+      <li data-target="#demo" data-slide-to="0" class="active"></li>
+      <li data-target="#demo" data-slide-to="1"></li>
+      <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+    
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+       <img src="{{ url_for('static', filename='CultureConnectBgwLogo.jpg') }}">
+      </div>
+      <div class="carousel-item">
+      <a href="{{ url_for('categorypage', catname='khadiclothproducts') }}"> 
+        <img src="{{ url_for('static', filename='carousel2.jpg') }}"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="{{ url_for('categorypage', catname='ayurvedicproducts') }}"> 
+        <img src="{{ url_for('static', filename='carousel3.jpg') }}"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="{{ url_for('categorypage', catname='homedecor') }}"> 
+        <img src="{{ url_for('static', filename='carousel4.jpg') }}"></a>
+      </div>
+    </div>
+    
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+</div>
+<div class="container-fluid">
+    <br><br><br>
+    <h2 class="title"><center>Featured</center></h2>
+    <div class="card-columns">
+        <div class="card" style="width:100%">
+            <a href="{{url_for('product', id=7)}}"><img class="card-img-top" src="{{ url_for('static', filename='ayurveda51.png') }}" alt="Card image" style="width:100%"></a>
+            <div class="card-body">
+            <h4 class="card-title"><center>Ayurvedic Scrub Mask</center></h4>
+            <p class="card-text"><center>This nourishing, 2-in-1 scrub mask exfoliates and revitalizes your skin!</center></p>
+            <center><a href="{{url_for('product', id=7)}}" class="btn btn-primary">See More</a></center>
+            </div>
+        </div>
+        <div class="card" style="width:100%">
+            <a href="{{url_for('categorypage', catname='jewellery')}}"><img class="card-img-top" src="{{ url_for('static', filename='j11.jpg') }}" alt="Card image" style="width:100%"></a>
+            <div class="card-body">
+            <h4 class="card-title"><center>Jewellery</center></h4>
+            <p class="card-text"><center>Check out our handmade jewellery!</center></p>
+            <center><a href="{{url_for('categorypage', catname='jewellery')}}" class="btn btn-primary">See more</a></center>
+            </div>
+        </div>
+        <div class="card" style="width:100%">
+            <a href="{{url_for('categorypage', catname='homedecor')}}"><img class="card-img-top" src="{{ url_for('static', filename='gallery25.jpg') }}" alt="Card image" style="width:100%"></a>
+            <div class="card-body">
+            <h4 class="card-title"><center>Home Decor</center></h4>
+            <p class="card-text"><center>Spruce up your home with our exquisite collection of home decor!</center></p>
+            <center><a href="{{url_for('categorypage', catname='homedecor')}}" class="btn btn-primary">See more</a></center>
+            </div>
+        </div>
+    
+</div>
+{% endblock content %}
